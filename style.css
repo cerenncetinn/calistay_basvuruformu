@@ -1,0 +1,272 @@
+
+:root {
+    --ana-mavi: #1E3A8A;
+    --aksiyon-kirmizi: #DC2626;
+    --arka-plan: #F8FAFC;
+    --beyaz: #FFFFFF;
+    --text: #1F2937;
+}
+
+/* Tarayıcıyı tamamen light mode'a zorla */
+html {
+    color-scheme: light only;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--arka-plan);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Input ve select alanlarını tamamen beyaz yap */
+input,
+select,
+textarea {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+/* Üniversite inputu özel koruma */
+#universite {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Chrome autofill düzeltmesi */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill {
+    -webkit-text-fill-color: #000000 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Datalist option düzeltmesi */
+option {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Logoları sağa sola yaslar */
+    align-items: center; /* Dikeyde ortalar */
+    padding: 15px 5%;
+    background: var(--beyaz);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 15px; /* Logolar ve yazı arasına nefes payı bırakır */
+}
+.header-title {
+    text-align: center;
+    color: var(--ana-mavi);
+    font-size: 1.3rem; /* Bilgisayarda büyük ve şık durur */
+    flex-grow: 1; /* Aradaki tüm boşluğu sahiplenir */
+    margin: 0;
+    font-weight: 700;
+}
+.logo {
+    height: 50px;
+    width: auto;
+    flex-shrink: 0; /* Ekran küçülse de logoların ezilmesini engeller */
+}
+
+/* Datalist alanı için ekstra boşluk */
+.container {
+    max-width: 850px;
+    margin: 20px auto;
+    padding: 0 20px 350px 20px;
+}
+
+.main-poster {
+    width: 100%;
+    max-width: 420px; /* Biraz daha dizginledik */
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 20px auto 30px auto;
+    
+    /* Kutu görüntüsünü yok eden kritik dokunuşlar */
+    background: transparent !important; /* Arka planı tamamen şeffaf yap */
+    border: none !important; /* Varsa kenarlıkları kaldır */
+    padding: 0 !important; /* İç boşluğu sıfırla */
+    box-shadow: none !important; /* Beyazlığı belli eden gölgeyi kaldır */
+    outline: none;
+}
+
+.card,
+.form-card,
+.day-card {
+    background: var(--beyaz);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* TELEFON EKRANLARI İÇİN KORUMA */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 10px 3%;
+        gap: 10px;
+    }
+    
+    .header-title {
+        font-size: 0.9rem; /* Telefonda sığması için yazıyı küçültürüz */
+        line-height: 1.3;
+    }
+
+    .logo {
+        height: 40px; /* Mobilde logolar da biraz küçülür */
+    }
+    .schedule-grid {
+        grid-template-columns: 1fr; /* Mobilde yan yana değil, alt alta dizer */
+    }
+.main-poster {
+        max-width: 85%; 
+        margin: 15px auto 25px auto;
+    }
+}
+
+.day-card {
+    border-top: 5px solid var(--ana-mavi);
+}
+
+.time-list {
+    list-style: none;
+}
+
+.time-list li {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 0.9rem;
+}
+
+.time-list span {
+    color: var(--ana-mavi);
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.input-error {
+    border-color: var(--aksiyon-kirmizi) !important;
+    background: #fff5f5 !important;
+}
+
+.checkbox-group-container {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.cta-button,
+.submit-btn {
+    background: var(--aksiyon-kirmizi);
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #94a3b8;
+}
+
+.sub-title {
+    font-size: 1.1rem;
+    color: #000000; /* Tam siyah yaptık */
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-weight: 800; /* Ekstra kalınlık vererek iyice öne çıkardık */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.info-box {
+    background: #eff6ff;
+    padding: 15px;
+    border-radius: 8px;
+    color: #1e40af;
+    margin-bottom: 15px;
+}
+
+.info-section h1 {
+    margin-bottom: 5px; /* Alt başlıkla arasını dengeler */
+}
+/* Sarı Uyarı Kutusu (Alert Box) Tasarımı ve Boşluğu */
+.alert-box {
+    background: #eff6ff; /* Arka plan rengi (Eğer HTML'de inline style yoksa bu geçerli olur) */
+    padding: 15px;
+    border-radius: 8px;
+    color: #1e40af;
+    margin-bottom: 45px; /* ALTINDAKİ ÇALIŞTAY PROGRAMI BAŞLIĞIYLA ARAYI İYİCE AÇTIK */
+}
+
+/* Çalıştay İşleyişi Metnini Daha Koyu ve Net Yapma */
+.description {
+    color: #000000; /* Tam siyah */
+    font-weight: 500; /* Orta kalınlık, yazıyı çok daha belirgin yapar */
+    line-height: 1.8;
+    margin-bottom: 35px; /* Altındaki kutuyla arasını biraz daha açtık */
+}

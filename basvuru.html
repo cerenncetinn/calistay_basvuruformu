@@ -1,0 +1,265 @@
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Başvuru Formu | ESOGÜ & ÖHD</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header>
+      <div class="header-container">
+        <img src="img/esogu-logo.png" alt="ESOGÜ Logo" class="logo" />
+        <h3 style="text-align: center; color: #003366; font-size: 1.1rem; margin: 0 15px; flex-grow: 1;">
+          Geleceğin Hemşire Liderleri Çalıştayı
+        </h3>
+        <img src="img/ohd-logo.png" alt="ÖHD Logo" class="logo" />
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="form-card">
+        <h2>Başvuru Formu</h2>
+        <p style="margin-bottom: 20px; font-size: 0.9rem; color: #666">
+          Lütfen bilgilerinizi eksiksiz doldurunuz. Çalışma grupları 20 kişi ile sınırlıdır; rapor sunum oturumu için ise kontenjan sınırı yoktur.
+        </p>
+
+        <form id="basvuruForm">
+          <div class="input-group">
+            <label>Ad Soyad *</label>
+            <input type="text" id="adSoyad" name="ad_soyad" placeholder="Örn: Ayşe Yılmaz" required />
+          </div>
+
+          <div class="input-group">
+            <label>E-posta *</label>
+            <input type="email" id="email" name="email" placeholder="ornek@domain.com" required />
+            <small id="emailError" style="color: #c53030; font-size: 0.75rem; display: none; margin-top: 5px; font-weight: 600;">
+                E-posta adresinde Türkçe karakter (ı, ş, ğ, ü, ö, ç) kullanılamaz. Otomatik düzeltildi.
+            </small>
+          </div>
+
+          <div class="input-group">
+            <label>Telefon *</label>
+            <input type="tel" id="tel" name="telefon" placeholder="0(5XX) XXX XX XX" required maxlength="16" />
+          </div>
+
+          <div class="input-group">
+            <label>Üniversite Adı *</label>
+            <select id="universite" name="universite" required>
+              <option value="">Üniversiteler yükleniyor...</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Sınıf Düzeyi *</label>
+            <select id="sinif" name="sinif" required>
+              <option value="">Seçiniz...</option>
+              <option value="1">1. Sınıf</option>
+              <option value="2">2. Sınıf</option>
+              <option value="3">3. Sınıf</option>
+              <option value="4">4. Sınıf</option>
+              <option value="Lisansüstü">Lisansüstü</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Çalışma Grubu Seçiniz *</label>
+            <select id="groupSelect" name="grup_id" required>
+              <option value="">Grup seçimi yapınız...</option>
+              <option value="Teorik ve uygulamalar arasındaki farklar">Teorik ve uygulamalar arasındaki farklar</option>
+              <option value="Ders ve uygulama yükü">Ders ve uygulama yükü</option>
+              <option value="Simülasyon laboratuvarlarının yetersizliği">Simülasyon laboratuvarlarının yetersizliği</option>
+              <option value="Stajyer öğrencilere mobbing">Stajyer öğrencilere mobbing</option>
+              <option value="Ücretsiz klinik uygulamalar">Ücretsiz klinik uygulamalar</option>
+              <option value="Sadece Çalıştay Sonu Raporlarının Sunulduğu Oturuma Katılmak İstiyorum">Sadece Çalıştay Sonu Raporlarının Sunulduğu Oturuma Katılmak İstiyorum</option>
+            </select>
+          </div>
+
+          <div style="background: #fff5f5; border: 1px solid #feb2b2; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; margin: 20px 0;">
+            <input type="checkbox" id="cameraConfirm" style="width: auto; cursor: pointer" />
+            <label for="cameraConfirm" style="font-size: 0.85rem; color: #c53030; font-weight: 500; cursor: pointer;">
+              Program esnasında kameramın ve sesimin açık olacağını kabul ediyorum. *
+            </label>
+          </div>
+
+          <div style="background: #fff5f5; border: 1px solid #feb2b2; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; margin: 20px 0;">
+            <input type="checkbox" id="recordConfirm" style="width: auto; cursor: pointer" />
+            <label for="recordConfirm" style="font-size: 0.85rem; color: #c53030; font-weight: 500; cursor: pointer;">
+              Çalıştay sırasında ekran kaydı alınacaktır. Ekran kaydı alınmasına iznim vardır. *
+            </label>
+          </div>
+
+          <button type="submit" id="submitBtn" class="submit-btn" disabled style="opacity: 0.5">
+            Başvuruyu Tamamla
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      // 1. SUPABASE BAĞLANTISI
+      const supabaseUrl = "https://lgtjixowcaimfcgubvsh.supabase.co";
+      const supabaseKey = "sb_publishable_spPmtt1478a2wX5NT3PIvA_7ACeolBT"; 
+      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+      const form = document.getElementById("basvuruForm");
+      const telInput = document.getElementById("tel");
+      const emailInput = document.getElementById("email");
+      const emailError = document.getElementById("emailError");
+      const submitBtn = document.getElementById("submitBtn");
+      const checkbox = document.getElementById("cameraConfirm");
+      const recordConfirm = document.getElementById("recordConfirm");
+      const groupSelect = document.getElementById("groupSelect");
+      const uniSelect = document.getElementById("universite");
+
+      // 2. ÜNİVERSİTE LİSTESİ
+      async function fetchUniversities() {
+        try {
+          const res = await fetch("https://raw.githubusercontent.com/anilozmen/TR-iller-universiteler-JSON/master/province-universities.json");
+          const data = await res.json();
+          let all = [];
+          data.forEach((s) => s.universities.forEach((u) => all.push(u.name)));
+          all.sort((a, b) => a.localeCompare(b, "tr"));
+          uniSelect.innerHTML = '<option value="">Üniversitenizi seçiniz...</option>';
+          all.forEach((uniName) => {
+            const option = document.createElement("option");
+            option.value = uniName;
+            option.textContent = uniName;
+            uniSelect.appendChild(option);
+          });
+        } catch (err) {
+          uniSelect.innerHTML = '<option value="">Yükleme hatası, sayfayı yenileyin.</option>';
+        }
+      }
+      fetchUniversities();
+
+      // 3. TELEFON FORMATI
+      telInput.addEventListener("input", (e) => {
+        if (e.inputType === "deleteContentBackward") return;
+        let v = e.target.value.replace(/\D/g, "").slice(0, 11);
+        if (v.length > 0 && v[0] !== "0") v = "0" + v;
+        let f = v;
+        if (v.length > 1) f = v[0] + "(" + v.slice(1, 4);
+        if (v.length >= 4) f += ") " + v.slice(4, 7);
+        if (v.length >= 7) f += " " + v.slice(7, 9);
+        if (v.length >= 9) f += " " + v.slice(9, 11);
+        e.target.value = f;
+      });
+
+      // E-POSTA TÜRKÇE KARAKTER DÜZELTME
+      emailInput.addEventListener("input", (e) => {
+        let v = e.target.value;
+        const turkishMap = { 'ı': 'i', 'İ': 'I', 'ş': 's', 'Ş': 'S', 'ğ': 'g', 'Ğ': 'G', 'ü': 'u', 'Ü': 'U', 'ö': 'o', 'Ö': 'O', 'ç': 'c', 'Ç': 'C' };
+        let hasTurkish = false;
+        let newV = v.replace(/[ıİğĞüÜşŞöÖçÇ]/g, (match) => {
+            hasTurkish = true;
+            return turkishMap[match];
+        });
+        if (hasTurkish) {
+            e.target.value = newV;
+            emailError.style.display = "block";
+            setTimeout(() => { emailError.style.display = "none"; }, 3000);
+        }
+      });
+
+      // 4. KONTENJAN KONTROLÜ
+      async function checkQuotas() {
+        // Kontenjan sınırı olan gruplar (Yeni eklenen grup burada yok, yani sınırsız)
+        const gruplar = [
+          "Teorik ve uygulamalar arasındaki farklar",
+          "Ders ve uygulama yükü",
+          "Simülasyon laboratuvarlarının yetersizliği",
+          "Stajyer öğrencilere mobbing",
+          "Ücretsiz klinik uygulamalar"
+        ];
+        try {
+          for (const grup of gruplar) {
+            const { count, error } = await supabaseClient
+              .from("basvurular")
+              .select("*", { count: "exact", head: true })
+              .eq("grup_id", grup);
+            if (error) continue;
+            const option = groupSelect.querySelector(`option[value="${grup}"]`);
+            if (option && count >= 20) {
+              option.disabled = true;
+              if (!option.textContent.includes("KONTENJAN DOLU")) {
+                option.textContent += " (KONTENJAN DOLU)";
+              }
+            }
+          }
+        } catch (err) {
+          console.error("Kota hatası:", err);
+        }
+      }
+      checkQuotas();
+
+      // 5. CHECKBOX KONTROLÜ
+      const validateCheckboxes = () => {
+        const isAllChecked = checkbox.checked && recordConfirm.checked;
+        submitBtn.disabled = !isAllChecked;
+        submitBtn.style.opacity = isAllChecked ? "1" : "0.5";
+      };
+      checkbox.addEventListener("change", validateCheckboxes);
+      recordConfirm.addEventListener("change", validateCheckboxes);
+
+      // 6. FORM GÖNDERME
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = "Gönderiliyor...";
+        submitBtn.disabled = true;
+        
+        const data = new FormData(form);
+        const selectedGroup = data.get("grup_id");
+
+        // Kontenjan sınırlı gruplardan biri seçildiyse kontrol et
+        const limitedGroups = [
+          "Teorik ve uygulamalar arasındaki farklar",
+          "Ders ve uygulama yükü",
+          "Simülasyon laboratuvarlarının yetersizliği",
+          "Stajyer öğrencilere mobbing",
+          "Ücretsiz klinik uygulamalar"
+        ];
+
+        if (limitedGroups.includes(selectedGroup)) {
+          const { count, error: quotaError } = await supabaseClient
+            .from("basvurular")
+            .select("*", { count: "exact", head: true })
+            .eq("grup_id", selectedGroup);
+
+          if (quotaError || count >= 20) {
+            alert("Seçilen çalışma grubunun kontenjanı dolmuştur, lütfen diğer seçenekleri değerlendiriniz.");
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            return;
+          }
+        }
+
+        const { error } = await supabaseClient.from("basvurular").insert([{
+          ad_soyad: data.get("ad_soyad"),
+          email: data.get("email"),
+          telefon: data.get("telefon"),
+          universite: data.get("universite"),
+          sinif: data.get("sinif"),
+          grup_id: selectedGroup,
+        }]);
+
+        if (error) {
+          alert("Hata: " + error.message);
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        } else {
+          window.location.href = "basarili.html";
+        }
+      });
+    </script>
+  </body>
+
+
+</html>

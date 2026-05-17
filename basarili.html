@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Başvurunuz Alındı | ESOGÜ & ÖHD</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --ana-mavi: #1e3a8a;
+        --acik-mavi: #f1f5f9;
+        --gri-text: #64748b;
+        --koyu-text: #1e293b;
+        --border-color: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+        color: var(--koyu-text);
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Kartı ekranın tam ortasına alır */
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .success-container {
+        background: white;
+        width: 100%;
+        max-width: 480px;
+        border-radius: 24px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        padding: 50px 40px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* LOGOLAR */
+      .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        margin-bottom: 20px;
+      }
+
+      .logos img {
+        height: 70px;
+        object-fit: contain;
+      }
+
+      /* İNCE ÇİZGİ */
+      .divider {
+        width: 100%;
+        height: 1px;
+        background-color: var(--border-color);
+        margin-bottom: 20px;
+      }
+
+      /* SLOGAN */
+      .slogan {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--ana-mavi);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .sub-slogan {
+        font-size: 12px;
+        color: var(--gri-text);
+        font-weight: 600;
+        margin-top: 5px;
+        margin-bottom: 35px;
+        letter-spacing: 1px;
+      }
+
+      /* TİK İKONU (Yeni, Kalın SVG) */
+      .icon-circle {
+        width: 80px;
+        height: 80px;
+        background-color: var(--acik-mavi);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+      }
+
+      .icon-circle svg {
+        width: 40px;
+        height: 40px;
+        /* Attığın resimdeki yeşil tonu */
+        color: #10B981; 
+      }
+
+      /* METİNLER */
+      h2 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 15px;
+        line-height: 1.3;
+      }
+
+      p.desc {
+        font-size: 14px;
+        color: var(--gri-text);
+        line-height: 1.6;
+        margin-bottom: 35px;
+        padding: 0 10px;
+      }
+
+      /* BUTON */
+      .btn-home {
+        background-color: var(--ana-mavi);
+        color: white;
+        text-decoration: none;
+        padding: 14px 30px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 15px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 40px;
+        transition: 0.3s;
+      }
+
+      .btn-home:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+      }
+
+      /* ALT BİLGİ */
+      .footer {
+        font-size: 12px;
+        color: var(--gri-text);
+      }
+
+      /* MOBİL UYUM */
+      @media (max-width: 480px) {
+        .success-container {
+          padding: 40px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="success-container">
+      
+      <div class="logos">
+        <img src="img/esogu-logo.png" alt="ESOGÜ Logo" />
+        <img src="img/ohd-logo.png" alt="ÖHD Logo" />
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="slogan">BEN YOK • BİZ VARIZ.</div>
+      <div class="sub-slogan">ÖHDER</div>
+
+      <div class="icon-circle">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+
+      <h2>Başvurunuz başarıyla<br>alınmıştır.</h2>
+      <p class="desc">
+        Teşekkür ederiz! Başvurunuz sistemimize kaydedildi. Gerekli incelemeler
+        yapıldıktan sonra tarafınıza bilgilendirme yapılacaktır.
+      </p>
+
+      <a href="index.html" class="btn-home">
+        <i class="fa-solid fa-house"></i> Ana Sayfa'ya Dön
+      </a>
+
+      <div class="footer">© 2024 ESOGÜ & ÖHD. Tüm hakları saklıdır.</div>
+      
+    </div>
+  </body>
+</html>
