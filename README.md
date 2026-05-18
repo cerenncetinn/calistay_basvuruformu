@@ -116,7 +116,7 @@ Amaçlar:
 
 ---
 
-##  Geliştirici
+##  Geliştiriciler
 
 **Ceren Nur Çetin & Zeynep Ebrar Çontar**
 
